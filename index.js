@@ -1,102 +1,87 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var numberOfButtons = document.querySelectorAll("button").length;
-    let audio;
-    let count = 0;
-    // console.log('sheshu')
+document.addEventListener('DOMContentLoaded',function(){
+    let audio;let userName = "";
+    // var userName = prompt("What is your name?");
+    
+    document.getElementById("containButton").addEventListener("click", function() {
+      var inputBox = document.getElementById("textInput");
+      userName = inputBox.value;
+      updateHeading();
+    });
+  
+    document.getElementById("textInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        var inputBox = document.getElementById("textInput");
+        userName = inputBox.value;
+        updateHeading();
+        event.preventDefault(); // Prevent form submission on Enter key
+      }
+    });
+  
+  
+    function updateHeading() {
+      if (userName !== "") {
+        document.querySelector("h1").textContent = userName + "'s 🥁 Kit!";
+        console.log(userName);
+      }
+    }
+    
     
     var buttons = document.querySelectorAll(".drum");
-    document.addEventListener("keypress",function(event){
-        value = event.key;
-        playAudioAndChangeColor1(value);
-
-      })
     
-    for (var i = 0; i < buttons.length; i++) 
+    var numberOfButtons = buttons.length;
+    
+    for(let i = 0;i<numberOfButtons;i++)
     {
-      buttons[i].addEventListener("click", playAudioAndChangeColor);
-      
-      
+        buttons[i].addEventListener("click",playAudio);
+        
     }
-
-    function playAudioAndChangeColor() {
-      this.style.color = "white";
-      count++;
-      var beat = this.innerHTML;
-      switch (beat) {
+    document.addEventListener("keydown",function(event) {playAudio(event)})
+    
+    function playAudio(event)
+    {
+        var source;
+  
+        if (event.type === "click") {
+        // Button click event
+            
+            let buttonIdendity = source = this.innerHTML;
+            console.log("This button was clicked: " + buttonIdendity);
+        } else if (event.type === "keydown") {
+        // Keydown event
+            
+            let keyIdentity = source = event.key;
+            // var button1 = document.getElementById(".drum");
+            
+          
+            
+            console.log("This key was pressed: " + keyIdentity);
+        }
+        switch(source)
+        {
         case 'w':
-          audio = new Audio("./sounds/tom-1.mp3");
+          audio = new Audio("./sounds/tom-1.mp3");audio.play();
           break;
         case 'a':
-          audio = new Audio("./sounds/tom-2.mp3");
+          audio = new Audio("./sounds/tom-2.mp3");audio.play();
           break;
         case 's':
-          audio = new Audio("./sounds/tom-3.mp3");
+          audio = new Audio("./sounds/tom-3.mp3");audio.play();
           break;
         case 'd':
-          audio = new Audio("./sounds/tom-4.mp3");
+          audio = new Audio("./sounds/tom-4.mp3");audio.play();
           break;
         case 'j':
-          audio = new Audio("./sounds/snare.mp3");
+          audio = new Audio("./sounds/snare.mp3");audio.play();
           break;
         case 'k':
-          audio = new Audio("./sounds/crash.mp3");
+          audio = new Audio("./sounds/crash.mp3");audio.play();
           break;
         case 'l':
-          audio = new Audio("./sounds/kick-bass.mp3");
+          audio = new Audio("./sounds/kick-bass.mp3");audio.play();
           break;
         default:
             console.log("Invalid element");  
-      }
-      audio.play();
-      if (count === numberOfButtons) {
-        resetButtonColors();
-      }
-    }
-
-    function playAudioAndChangeColor1(value) {
-        
-        count++;
-        
-        switch (value) {
-          case 'w':
-            audio = new Audio("./sounds/tom-1.mp3");
-            break;
-          case 'a':
-            audio = new Audio("./sounds/tom-2.mp3");
-            break;
-          case 's':
-            audio = new Audio("./sounds/tom-3.mp3");
-            break;
-          case 'd':
-            audio = new Audio("./sounds/tom-4.mp3");
-            break;
-          case 'j':
-            audio = new Audio("./sounds/snare.mp3");
-            break;
-          case 'k':
-            audio = new Audio("./sounds/crash.mp3");
-            break;
-          case 'l':
-            audio = new Audio("./sounds/kick-bass.mp3");
-            break;
-          default:
-              console.log("Invalid element");  
         }
-        audio.play();
-        if (count === numberOfButtons) {
-          resetButtonColors();
-        }
-      }
-  
-    function resetButtonColors() {
-      var buttons = document.querySelectorAll("button");
-      for (var i = 0; i < numberOfButtons; i++) {
-        buttons[i].style.color = "red";
-      }
-      count = 0;
+        
     }
-    
-  
-    
-  });
-
+})
